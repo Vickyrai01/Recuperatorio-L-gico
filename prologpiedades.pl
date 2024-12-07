@@ -27,3 +27,12 @@ esCopada(casa(Metros)):- Metros > 100.
 esCopada(departamento(Ambientes, _)):- Ambientes > 3.
 esCopada(departamento(_, Banios)):- Banios > 1.
 esCopada(loft(AnioDeConstruccion)):- AnioDeConstruccion > 2015.
+
+barrioCaro(Barrio):-
+    barrio(Barrio),
+    not((vive(_, Propiedad, Barrio), esBarata(Propiedad))).
+
+esBarata(loft(AnioDeConstruccion)):- AnioDeConstruccion < 2005.
+esBarata(casa(Metros)):- Metros <  90.
+esBarata(departamento(Ambientes,_)):- Ambientes =< 2.
+
