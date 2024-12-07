@@ -36,3 +36,35 @@ esBarata(loft(AnioDeConstruccion)):- AnioDeConstruccion < 2005.
 esBarata(casa(Metros)):- Metros <  90.
 esBarata(departamento(Ambientes,_)):- Ambientes =< 2.
 
+valorPropiedad(juan, 150000).
+valorPropiedad(nico, 80000).
+valorPropiedad(alf, 75000).
+valorPropiedad(julian, 140000).
+valorPropiedad(vale, 95000).
+valorPropiedad(fer, 60000).
+
+sePuedeComprar(PropiedadesPosibles, PlataDisponible, PlataRestante):-
+    findall(Propiedad,precioDe(Propiedad,_), Propiedades),
+    sublista(Propiedades, PropiedadesPosibles),
+    puedeComprar(PropiedadesPosibles, PlataDisponible, PlataRestante).
+
+puedeComprar(Propiedades, PlataDisponible, PlataRestante):-
+    precioTotal(Propiedades, PrecioDePropiedades),
+    PlataRestante is PlataDisponible - PrecioDePropiedades,
+    PlataRestante >= 0.
+
+precioTotal(Propiedades, Total):-
+    findall(Precio, precioDePropiedadEn(Propiedades,_,Precio) , Precios),
+    sumlist(Precios, Total).
+
+precioDePropiedadEn(Propiedades, Propiedad, Precio):-
+    member(Propiedad, Propiedades), 
+    precioDe(Propiedad ,Precio).
+
+precioDe(propiedad(Propiedad, Persona), Valor):-
+    vive(Persona, Propiedad,_),
+    valorPropiedad(Persona, Valor).
+
+sublista([],[]).
+sublista([_|Cola], Sublista):-sublista(Cola, Sublista).
+sublista([Cabeza|Cola],[Cabeza|Sublista]):-sublista(Cola, Sublista).
