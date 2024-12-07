@@ -16,3 +16,14 @@ vive(vale, departamento(4,1), flores).
 vive(fer, casa(110), flores).
 
 vive(vicky, departamento(4,2), lanus).
+
+barrio(Barrio):- vive(_,_,Barrio).
+
+barrioCopado(Barrio):-
+    barrio(Barrio),
+    forall(vive(_,Propiedad, Barrio), esCopada(Propiedad)).
+
+esCopada(casa(Metros)):- Metros > 100.
+esCopada(departamento(Ambientes, _)):- Ambientes > 3.
+esCopada(departamento(_, Banios)):- Banios > 1.
+esCopada(loft(AnioDeConstruccion)):- AnioDeConstruccion > 2015.
